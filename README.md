@@ -25,32 +25,6 @@ Este é um sistema completo de uma pizzaria com galeria de slides categorizados,
 - **SQLite Viewer (Florian Klampfer) - Visualizador SQLite (se necessário).**
 - **Jinja (wholroyd) - Suporte para templates Jinja.**
 
-## 🧱 Configuração do Banco de Dados
-
-1. **Crie o banco de dados**:
-
-```sql
-CREATE DATABASE bancopizzaria;
-
-CREATE TABLE usuario (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) NOT NULL,
-  password VARCHAR(100) NOT NULL,
-  email VARCHAR(100)
-);
-
-CREATE TABLE slides (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  texto VARCHAR(255),
-  imagem LONGBLOB,
-  categoria VARCHAR(50)
-);
-
-## Exemplo:
-
-INSERT INTO usuario (username, password, email) VALUES ('admin', 'admin123', 'admin@pizzaria.com');
-
-```
 ## ⚙️ Configuração do Projeto
 Conexão com banco no código Java (Conexao.java):
 
@@ -84,9 +58,10 @@ Para funcionar o localhost não se deve fechar o mvn spring-boot:run
 ## 📦 Funcionalidades
 -- Visualização de slides por categoria
 -- Inserção e remoção de slides via painel administrativo
--- Painel administrativo flutuante e arrastável
+-- Painel administrativo Podendo inserir e excluir
 -- Filtro dinâmico por categoria com atualização instantânea via API REST (/api/slides?categoria=nome)
 -- Armazenamento das imagens no banco de dados no formato BLOB
+
 
 [sitepizzaria.zip](https://github.com/user-attachments/files/21554468/sitepizzaria.zip)
 
