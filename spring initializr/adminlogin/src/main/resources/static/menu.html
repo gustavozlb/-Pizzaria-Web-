@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardápio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+</head>
+<body>
+
+  <div class="navigation-buttons">
+    <a href="contact.html" class="button">Fale Conosco</a>
+    <a href="home.html" class="button">Home</a>
+    <a href="#" class="button" id="btnLogout" style="display: none;">Logout</a>
+  </div>
+
+  <div class="top-bar-menu" id="tituloSite"></div>
+
+  <div class="filters" id="categoryButtons"></div>
+
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper" id="swiperWrapper"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+
+  <div id="image-container">
+    <img id="imagem-exibida" src="" alt="Imagem da categoria" style="display: none;" />
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="carousel.js"></script>
+</body>
+</html>
