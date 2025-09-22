@@ -1,7 +1,10 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import br.com.pizzaria.adminlogin.config.DatabaseConnection;
+
 import java.util.Map;
 
 @RestController

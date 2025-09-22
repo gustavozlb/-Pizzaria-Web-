@@ -1,42 +1,46 @@
 window.addEventListener("DOMContentLoaded", () => {
   const logoutButton = document.getElementById("btnLogout");
 
-  // Carrega título
-  fetch("/api/content/last?type=title")
+  // Carrega título 
+  fetch("/api/content/last?type=titulo")
     .then(response => {
       if (!response.ok) throw new Error("Erro ao carregar título");
       return response.json();
     })
     .then(data => {
-      document.getElementById("tituloSite").innerHTML = data.text;
+      const titulo = document.getElementById("tituloSite");
+      if (titulo) titulo.innerHTML = data.text;
     })
     .catch(error => {
       console.error(error);
-      document.getElementById("tituloSite").innerHTML = "Cardápio 🍕";
+      const titulo = document.getElementById("tituloSite");
+      if (titulo) titulo.innerHTML = "Cardápio 🍕";
     });
 
-  // Verifica login admin
-  fetch("/api/admin/status", { credentials: "include" })
-    .then(res => {
-      if (!res.ok) throw new Error("Não autorizado");
-      return res.json();
-    })
-    .then(data => {
-      if (data.status === "ok" && window.location.pathname.includes("manager")) {
-        exibirPainelAdmin();
-      }
-    })
-    .catch(() => {
-      if (window.location.pathname.includes("manager")) {
+  // Verifica login 
+  if (window.location.pathname.includes("manager")) {
+    fetch("/api/admin/status", { credentials: "include" })
+      .then(res => {
+        if (!res.ok) throw new Error("Não autorizado");
+        return res.json();
+      })
+      .then(data => {
+        if (data.status === "ok") {
+          exibirPainelAdmin();
+        } else {
+          window.location.href = "home.html";
+        }
+      })
+      .catch(() => {
         window.location.href = "home.html";
-      }
-    });
+      });
+  }
 
-  // Logout
+  // Logout 
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
       fetch("/api/logout", { method: "POST", credentials: "include" })
-        .then(() => window.location.reload())
+        .then(() => window.location.href = "home.html")
         .catch(() => alert("Erro ao fazer logout"));
     });
   }
@@ -56,6 +60,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   loadCategoryMenu();
 });
+
 
 // Função global para carregar opções de exclusão
 function loadDeleteOptions(type) {

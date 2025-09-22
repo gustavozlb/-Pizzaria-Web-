@@ -8,8 +8,8 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.4</version>
-    <relativePath/> <!-- busca o parent no repositório central -->
+    <version>3.5.5</version>
+    <relativePath/> 
   </parent>
 
   <groupId>br.com.pizzaria</groupId>
@@ -72,7 +72,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
@@ -91,7 +90,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
-          <mainClass>br.com.pizzaria.adminlogin.TestConnection</mainClass>
+          <mainClass>br.com.pizzaria.adminlogin.service.TestConnection</mainClass>
         </configuration>
       </plugin>
     </plugins>

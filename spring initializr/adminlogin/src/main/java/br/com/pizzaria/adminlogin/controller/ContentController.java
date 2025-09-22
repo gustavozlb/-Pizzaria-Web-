@@ -1,16 +1,23 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.pizzaria.adminlogin.model.Category;
+import br.com.pizzaria.adminlogin.model.Slide;
+import br.com.pizzaria.adminlogin.model.Title;
+import br.com.pizzaria.adminlogin.repository.CategoryRepository;
+import br.com.pizzaria.adminlogin.repository.SlideRepository;
+import br.com.pizzaria.adminlogin.repository.TitleRepository;
+
 @RestController
 @RequestMapping("/api/content")
 public class ContentController {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoryRepository categoriaRepository;
 
     @Autowired
     private SlideRepository slideRepository;
@@ -28,7 +35,7 @@ public class ContentController {
         try {
             switch (type) {
                 case "categoria":
-                    Categorias cat = new Categorias();
+                    Category cat = new Category();
                     cat.setNome(text);
                     categoriaRepository.save(cat);
                     break;
@@ -81,7 +88,7 @@ public class ContentController {
                     return ResponseEntity.ok(lastSlide);
 
                 case "categoria":
-                    Categorias lastCat = categoriaRepository.findTopByOrderByIdDesc();
+                    Category lastCat = categoriaRepository.findTopByOrderByIdDesc();
                     if (lastCat == null) return ResponseEntity.notFound().build();
                     return ResponseEntity.ok(lastCat);
 

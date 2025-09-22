@@ -1,9 +1,11 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import br.com.pizzaria.adminlogin.config.DatabaseConnection;
 
 import java.util.HashMap;
 import java.util.Map;

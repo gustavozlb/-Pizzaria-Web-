@@ -1,4 +1,4 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

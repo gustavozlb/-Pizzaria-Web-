@@ -1,4 +1,4 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "categorias")
-public class Categorias {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,7 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.pizzaria.adminlogin.model.Slide;
+import br.com.pizzaria.adminlogin.repository.SlideRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,26 +11,27 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/slides")
+@RequestMapping("/api")
 public class SlideController {
 
-    @Autowired
-    private SlideRepository slideRepository;
+    private final SlideRepository slideRepository;
 
-    // Buscar slides por categoria
-    @GetMapping
-    public ResponseEntity<List<Slide>> findByCategory(@RequestParam String category) {
-        List<Slide> slides = slideRepository.findByCategoryIgnoreCase(category);
-
-        if (slides == null || slides.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(slides);
+    public SlideController(SlideRepository slideRepository) {
+        this.slideRepository = slideRepository;
     }
 
-    // Salvar slide com upload
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    // Buscar slides por categoria (com fallback)
+    @GetMapping("/slides")
+    public List<Slide> getSlidesByCategory(@RequestParam(required = false) String category) {
+        if (category == null || category.isBlank()) {
+            return slideRepository.findAll();
+        }
+        List<Slide> slides = slideRepository.findByCategoryIgnoreCase(category);
+        return slides.isEmpty() ? slideRepository.findAll() : slides;
+    }
+
+    // Salvar slide com upload de imagem
+    @PostMapping(value = "/slides/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> saveSlide(@RequestParam String category,
                                        @RequestParam String text,
                                        @RequestParam("file") MultipartFile file) {
@@ -50,8 +52,8 @@ public class SlideController {
         }
     }
 
-    // Exibe a imagem pelo id
-    @GetMapping("/image/{id}")
+    // Exibir imagem pelo ID
+    @GetMapping("/slides/image/{id}")
     public ResponseEntity<byte[]> showImage(@PathVariable Long id) {
         Slide slide = slideRepository.findById(id).orElse(null);
 
@@ -60,8 +62,8 @@ public class SlideController {
         }
 
         return ResponseEntity
-            .ok()
-            .contentType(MediaType.IMAGE_PNG)
-            .body(slide.getImage());
+                .ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(slide.getImage());
     }
 }

@@ -1,6 +1,8 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.service;
 
 import java.sql.Connection;
+
+import br.com.pizzaria.adminlogin.config.DatabaseConnection;
 
 public class TestConnection {
 

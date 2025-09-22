@@ -1,4 +1,4 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

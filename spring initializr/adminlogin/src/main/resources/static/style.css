@@ -115,9 +115,10 @@ body {
   position: relative;
   width: 100%;
   max-width: 1900px;
-  margin: 100px auto 0;
-  margin-bottom: 150px;
+  margin: 40px auto 0; 
+  margin-bottom: 100px; 
 }
+
 
 .swiper-pagination {
   position: static;

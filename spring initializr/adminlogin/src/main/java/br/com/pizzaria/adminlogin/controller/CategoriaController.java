@@ -1,7 +1,11 @@
-package br.com.pizzaria.adminlogin;
+package br.com.pizzaria.adminlogin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import br.com.pizzaria.adminlogin.model.Category;
+import br.com.pizzaria.adminlogin.repository.CategoryRepository;
+
 import java.util.List;
 
 @RestController
@@ -9,15 +13,15 @@ import java.util.List;
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoryRepository categoriaRepository;
 
     @GetMapping
-    public List<Categorias> listar() {
+    public List<Category> listar() {
         return categoriaRepository.findAll();
     }
 
     @PostMapping
-    public Categorias criar(@RequestBody Categorias categoria) {
+    public Category criar(@RequestBody Category categoria) {
         return categoriaRepository.save(categoria);
     }
 }
