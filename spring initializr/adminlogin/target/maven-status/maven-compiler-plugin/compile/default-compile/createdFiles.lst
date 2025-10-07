@@ -1,0 +1,12 @@
+br\com\pizzaria\adminlogin\PizzariaAdminApplication.class
+br\com\pizzaria\adminlogin\service\TestConnection.class
+br\com\pizzaria\adminlogin\config\DatabaseConnection.class
+br\com\pizzaria\adminlogin\controller\LoginController.class
+br\com\pizzaria\adminlogin\controller\CategoriaController.class
+br\com\pizzaria\adminlogin\repository\TitleRepository.class
+br\com\pizzaria\adminlogin\repository\SlideRepository.class
+br\com\pizzaria\adminlogin\model\Title.class
+br\com\pizzaria\adminlogin\controller\SlideController.class
+br\com\pizzaria\adminlogin\service\PasswordRecoveryController.class
+br\com\pizzaria\adminlogin\model\Slide.class
+br\com\pizzaria\adminlogin\controller\ContentController.class

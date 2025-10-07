@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login de Administrador</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="admin-page">
+
+  <div class="auth-bar">
+    <h1 class="title">Login - Admin</h1>
+
+    <input type="text" id="username" placeholder="Usuário" />
+    <input type="password" id="password" placeholder="Senha" />
+    <a href="forgotpassword.html" class="recovery-link">Esqueci minha senha</a>
+    
+    <div class="button-group">
+      <button onclick="checkLogin()" class="button">Entrar</button>
+      <a href="manager.html" class="button">Sair</a>
+    </div>
+  </div>
+
+  <p id="message" class="error"></p>
+
+  <script>
+    function checkLogin() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      fetch("/api/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      })
+      .then(response => response.json())
+      .then(response => {
+        if (response.status === "ok") {
+          localStorage.setItem("adminLogado", "true"); 
+          window.location.href = "manager.html"; 
+        } else {
+          document.getElementById("message").innerText = response.mensagem || "Usuário ou senha incorretos.";
+        }
+      })
+      .catch(err => {
+        console.error("Erro na requisição:", err);
+        document.getElementById("message").innerText = "Erro de conexão com o servidor.";
+      });
+    }
+  </script>
+
+</body>
+</html>

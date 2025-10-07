@@ -1,0 +1,532 @@
+.font-face {
+  font-family: 'Pizzaria';
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+body {
+  background-image: url('images/fundo_pizzaria.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Top bar */
+.top-bar {
+  background-color: rgb(102, 4, 4);
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-family: 'Pizzaria', sans-serif;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.side-images {
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 120px;
+}
+
+.item {
+  width: 90%;
+  max-width: 300px;
+}
+
+/* Swiper slides */
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rounded image borders */
+.item img {
+  border-radius: 8px;
+  border: 5px solid white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Centered span inside text */
+.centered {
+  display: block;
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* Navigation buttons */
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+/* Page switch button */
+.button {
+  background-color: darkred;
+  color: white;
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
+  text-decoration: none;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  border-radius: 0.5rem;
+  font-family: 'Pizzaria', sans-serif;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease;
+  margin-top: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.button:hover {
+  background-color: red;
+  transform: scale(1.05);
+}
+
+.swiper {
+  position: relative;
+  width: 100%;
+  max-width: 1900px;
+  margin: 40px auto 0; 
+  margin-bottom: 100px; 
+}
+
+.swiper-pagination {
+  position: static;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.swiper-slide img {
+  width: 100%;
+  max-width: 500px;
+  max-height: 400px;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 5px solid white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Text box below images */
+.text-box {
+  background-color: white;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
+  color: #553d2a;
+  line-height: 1.6;
+  width: 100%;
+  max-width: 500px;
+  max-height: 160px;
+  height: auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  overflow: hidden;
+  flex: 1;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: white;
+  opacity: 0.5;
+  padding: 15px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgba(102, 4, 4, 1);
+  opacity: 1;
+}
+
+.swiper-pagination-bullet {
+  background-color: white;
+  opacity: 0.6;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: darkred;
+  opacity: 1;
+}
+
+/* Contact section */
+.top-bar-contact {
+  background-color: #660404;
+  color: #fff;
+  padding: clamp(0.5rem, 2vw, 1rem);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-family: 'Pizzaria', sans-serif;
+  position: sticky;
+  top: 0;
+  width: clamp(20rem, 40vw, 30rem);
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  text-align: center;
+}
+
+.bar-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 1200px;
+}
+
+.bar {
+  width: clamp(20rem, 80vw, 60rem);
+  aspect-ratio: 16/9;
+  margin: 0 auto;
+  padding: clamp(1rem, 5vw, 3rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.text-box-contact {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  max-width: 90%;
+  margin: 0 auto;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  line-height: 1.6;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  word-break: break-word;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .bar-container {
+    flex-direction: column;
+  }
+  .bar {
+    padding: 2rem 1rem;
+  }
+}
+
+/* Menu section */
+.top-bar-menu {
+  background-color: #660404;
+  color: #fff;
+  padding: clamp(0.5rem, 2vw, 1rem);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-family: 'Pizzaria', sans-serif;
+  position: sticky;
+  top: 0;
+  width: fit-content;          
+  max-width: 90vw;              
+  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  text-align: center;
+  white-space: nowrap;          
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#image-container img {
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 20px;
+  transition: opacity 0.3s ease;
+  object-fit: contain;
+}
+
+.category-button {
+  background-color: #b1190e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  margin: 10px;
+}
+
+.category-button:hover {
+  background-color: #b33b3b;
+  transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .category-button {
+    flex: 1 1 45%;
+    max-width: 180px;
+    font-size: 0.9rem;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  #image-container img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Admin section */
+
+body.admin-page {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 50px;
+  background-image: url('images/fundoadmin.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  color: white;
+}
+
+input {
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.admin-page .button {
+  display: inline-block;
+  background-color: darkred;
+  color: white;
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  font-family: 'Pizzaria', sans-serif;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-align: center;
+  width: 150px;
+}
+
+.error {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+.auth-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: rgb(46, 45, 45);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 600px;
+  margin: 60px auto;
+  min-height: 600px;
+  height: auto;
+}
+
+.auth-bar input[type="text"],
+.auth-bar input[type="password"] {
+  padding: 14px 16px;
+  font-size: 1.4rem;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.auth-bar button {
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  background-color: darkred;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.auth-bar button:hover {
+  transform: scale(1.05);
+}
+
+.auth-bar .recovery-link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 0.95rem;
+  margin-left: auto;
+  margin-right: 4rem;
+}
+
+.auth-bar .recovery-link:hover {
+  text-decoration: underline;
+}
+
+.title {
+  font-size: clamp(1rem, 3vw, 2.5rem);
+  font-weight: bold;
+  margin: 20px auto 80px;
+  text-align: center;
+  color: white;
+  font-family: 'Pizzaria', sans-serif;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .auth-bar {
+    width: 90%;
+    height: auto;
+    padding: 1.5rem;
+    margin: 40px auto;
+  }
+
+  .title {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 40px;
+  }
+
+  .auth-bar input[type="text"],
+  .auth-bar input[type="password"] {
+    font-size: 1.2rem;
+    width: 100%;
+  }
+
+  .auth-bar button {
+    font-size: 1rem;
+    padding: 12px 20px;
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.panel-wrapper {
+  position: relative; 
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  max-width: 800px;
+}
+
+
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 6px;
+  color: #fff;
+  padding-top: 40px;
+}
+
+
+/* Abas do painel admin */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tab-button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tab-button:hover {
+  background-color: #666;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+#editor,
+#editorCardapio,
+#editorHome {
+  background: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
