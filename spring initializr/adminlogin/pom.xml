@@ -16,8 +16,8 @@
   <artifactId>adminlogin</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>adminlogin</name>
-  <description>Projeto de administração da pizzaria com Spring Boot</description
-  >
+  <description>Projeto de administração da pizzaria com Spring Boot</description>
+
 
   <properties>
     <java.version>24</java.version>

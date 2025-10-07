@@ -16,7 +16,7 @@
 }
 
 body {
-  background-image: url('images/home/fundo_pizzaria.jpg');
+  background-image: url('images/fundo_pizzaria.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -110,7 +110,6 @@ body {
   transform: scale(1.05);
 }
 
-
 .swiper {
   position: relative;
   width: 100%;
@@ -118,7 +117,6 @@ body {
   margin: 40px auto 0; 
   margin-bottom: 100px; 
 }
-
 
 .swiper-pagination {
   position: static;
@@ -223,7 +221,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('images/home/faixa-pizzaria.jpg') center/cover no-repeat;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   color: #fff;
@@ -270,7 +267,6 @@ body {
   text-align: center;
   white-space: nowrap;          
 }
-
 
 .filters {
   display: flex;
@@ -340,7 +336,7 @@ body.admin-page {
   font-family: sans-serif;
   text-align: center;
   margin-top: 50px;
-  background-image: url('images/admin/fundoadmin.png');
+  background-image: url('images/fundoadmin.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -474,28 +470,60 @@ input {
 }
 
 .panel-wrapper {
-  position: fixed;
-  top: 100px;
-  left: 50px;
+  position: relative; 
+  margin: 40px auto;
   padding: 20px;
   background-color: #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 999;
+  z-index: 1;
+  max-width: 800px;
 }
+
 
 .admin-panel {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   padding: 20px;
   background-color: #333;
   border-radius: 6px;
   color: #fff;
+  padding-top: 40px;
 }
 
 
-#editor {
+/* Abas do painel admin */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tab-button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tab-button:hover {
+  background-color: #666;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+#editor,
+#editorCardapio,
+#editorHome {
   background: white;
   color: black;
   border: 1px solid #ccc;
