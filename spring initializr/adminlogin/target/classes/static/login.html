@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login de Administrador</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body class="admin-page">
@@ -22,35 +22,6 @@
   </div>
 
   <p id="message" class="error"></p>
-
-  <script>
-    function checkLogin() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-
-      fetch("/api/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-      })
-      .then(response => response.json())
-      .then(response => {
-        if (response.status === "ok") {
-          localStorage.setItem("adminLogado", "true"); 
-          window.location.href = "manager.html"; 
-        } else {
-          document.getElementById("message").innerText = response.mensagem || "Usuário ou senha incorretos.";
-        }
-      })
-      .catch(err => {
-        console.error("Erro na requisição:", err);
-        document.getElementById("message").innerText = "Erro de conexão com o servidor.";
-      });
-    }
-  </script>
 
 </body>
 </html>

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import br.com.pizzaria.adminlogin.model.Category;
 import br.com.pizzaria.adminlogin.model.Slide;
 import br.com.pizzaria.adminlogin.model.Title;
@@ -17,7 +19,10 @@ import br.com.pizzaria.adminlogin.repository.SlideRepository;
 import br.com.pizzaria.adminlogin.repository.TitleRepository;
 import br.com.pizzaria.adminlogin.repository.HomeTitleRepository;
 import br.com.pizzaria.adminlogin.repository.HomeSlideRepository;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 
+import java.awt.image.BufferedImage;
 
 @RestController
 @RequestMapping("/api/content")
@@ -38,6 +43,48 @@ public class ContentController {
     @Autowired
     private HomeSlideRepository homeSlideRepository;
 
+    private static final PolicyFactory POLICY =
+            Sanitizers.FORMATTING
+            .and(Sanitizers.LINKS)
+            .and(Sanitizers.BLOCKS);
+
+    private String sanitizeHtml(String html) {
+        if (html == null) return null;
+        return POLICY.sanitize(html);
+    }
+
+    private boolean isValidImage(MultipartFile file) {
+        try {
+            if (file == null || file.isEmpty()) return false;
+
+            String type = file.getContentType();
+
+            BufferedImage img = ImageIO.read(file.getInputStream());
+
+            if(img == null){
+                return false;
+            }
+
+            if (img.getWidth() > 5000 || img.getHeight() > 5000) {
+                return false;
+            }
+
+            return type != null && (
+                type.equals("image/jpeg") ||
+                type.equals("image/png") ||
+                type.equals("image/webp")
+            );
+
+            } catch (Exception e) {
+                return false;
+            }
+    }
+
+    private boolean isValidSize(MultipartFile file) {
+         return file != null && file.getSize() <= 5 * 1024 * 1024;
+    }
+    
+    // Adicionar
     @PostMapping("/add")
     public ResponseEntity<String> addContent(
             @RequestParam String type,
@@ -45,23 +92,48 @@ public class ContentController {
             @RequestParam(required = false) String category,
             @RequestParam(required = false) MultipartFile file) {
         try {
+            text = sanitizeHtml(text);
+            category = sanitizeHtml(category);
+            if (text != null && text.length() > 500) {
+                return ResponseEntity.badRequest().body("Texto muito grande");
+            }
+            if (type == null || type.isBlank()) {
+                return ResponseEntity.badRequest().body("Tipo é obrigatório");
+            }   
             switch (type.toLowerCase()) {
                 // Cardápio
                 case "categoria":
+                    if (category != null && category.length() > 100) {
+                        return ResponseEntity.badRequest().body("Categoria inválida");
+                    }
+                    if (text == null || text.isBlank()) {
+                        return ResponseEntity.badRequest().body("Texto é obrigatório");
+                    }
                     Category cat = new Category();
                     cat.setNome(text);
                     categoriaRepository.save(cat);
                     break;
 
                 case "titulo":
+                
+                    if (text == null || text.trim().isEmpty()) {
+                        return ResponseEntity.badRequest().body("Texto é obrigatório");
+                    }
+
                     Title title = new Title();
                     title.setText(text);
                     titleRepository.save(title);
                     break;
 
                 case "slides":
-                    if (file == null || file.isEmpty()) {
-                        return ResponseEntity.badRequest().body("Imagem é obrigatória para slides do cardápio");
+                    if (file == null || file.isEmpty() || !isValidImage(file)) {
+                        return ResponseEntity.badRequest().body("Imagem inválida");
+                    }
+                    if (!isValidSize(file)) {
+                        return ResponseEntity.badRequest().body("Imagem muito grande (máx 5MB)");
+                    }
+                    if (category == null || category.isBlank()) {
+                        return ResponseEntity.badRequest().body("Categoria é obrigatória");
                     }
                     Slide slide = new Slide();
                     slide.setText(text);
@@ -72,14 +144,23 @@ public class ContentController {
 
                 // Home
                 case "home_title":
+                    if (text == null || text.isBlank()) {
+                        return ResponseEntity.badRequest().body("Texto é obrigatório");
+                    }
                     HomeTitle homeTitle = new HomeTitle();
                     homeTitle.setTitleHome(text);
                     homeTitleRepository.save(homeTitle);
                     break;
 
                 case "home_slides":
-                    if (file == null || file.isEmpty()) {
-                        return ResponseEntity.badRequest().body("Imagem é obrigatória para slides da home");
+                    if (text != null && text.length() > 500) {
+                        return ResponseEntity.badRequest().body("Texto muito grande");
+                    }
+                    if (file == null || file.isEmpty() || !isValidImage(file)) {
+                        return ResponseEntity.badRequest().body("Imagem inválida");
+                    }
+                    if (!isValidSize(file)) {
+                        return ResponseEntity.badRequest().body("Imagem muito grande (máx 5MB)");
                     }
                     HomeSlide slideHome = new HomeSlide();
                     slideHome.setSlideHome(file.getBytes());
@@ -94,15 +175,16 @@ public class ContentController {
             return ResponseEntity.ok("Item salvo com sucesso!");
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Erro: " + e.getMessage());
-        }
+            return ResponseEntity.status(500).body("Erro interno do servidor");        }
     }
 
     // Buscar último
     @GetMapping("/last")
     public ResponseEntity<?> getLast(@RequestParam String type) {
         try {
+            if (type == null || type.isBlank()) {
+                return ResponseEntity.badRequest().body("Tipo é obrigatório");
+            }
             switch (type.toLowerCase()) {
                 // Cardápio
                 case "titulo":
@@ -123,7 +205,7 @@ public class ContentController {
                 // Home
                 case "home_title":
                     HomeTitle lastTitleHome = homeTitleRepository.findTopByOrderByIdDesc();
-                    if (lastTitleHome == null) return ResponseEntity.notFound().build();
+                        if (lastTitleHome == null) return ResponseEntity.notFound().build();
                     return ResponseEntity.ok(lastTitleHome);
 
                 case "home_slides":
@@ -136,7 +218,6 @@ public class ContentController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(500).body("Erro no servidor");
         }
     }
@@ -145,6 +226,9 @@ public class ContentController {
     @GetMapping("/list")
     public ResponseEntity<?> listAll(@RequestParam String type) {
         try {
+            if (type == null || type.isBlank()) {
+                return ResponseEntity.badRequest().body("Tipo é obrigatório");
+            }
             switch (type.toLowerCase()) {
                 // Cardápio
                 case "slides":
@@ -168,7 +252,6 @@ public class ContentController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(500).body("Erro no servidor");
         }
     }
@@ -177,6 +260,12 @@ public class ContentController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteContent(@PathVariable Long id, @RequestParam String type) {
         try {
+            if (type == null || type.isBlank()) {
+                return ResponseEntity.badRequest().body("Tipo é obrigatório");
+            }
+            if (id == null || id <= 0) {
+                return ResponseEntity.badRequest().body("ID inválido");
+            }
             switch (type.toLowerCase()) {
                 // Cardápio
                 case "slides":
@@ -214,8 +303,7 @@ public class ContentController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Erro: " + e.getMessage());
+            return ResponseEntity.status(500).body("Erro no servidor");
         }
     }
     @GetMapping("/home_slides/image/{id}")
@@ -231,7 +319,7 @@ public class ContentController {
 
         return ResponseEntity
                 .ok()
-                .header("Content-Type", "image/jpeg")
+                .header("Content-Type", "image/*")
                 .body(slide.getSlideHome());
         }
 }

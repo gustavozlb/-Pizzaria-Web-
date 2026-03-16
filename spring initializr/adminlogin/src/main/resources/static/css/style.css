@@ -16,7 +16,7 @@
 }
 
 body {
-  background-image: url('images/fundo_pizzaria.jpg');
+  background-image: url('../images/fundo_pizzaria.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -26,7 +26,6 @@ body {
   overflow-y: auto;
 }
 
-/* Top bar */
 .top-bar {
   background-color: rgb(102, 4, 4);
   color: #fff;
@@ -54,7 +53,6 @@ body {
   max-width: 300px;
 }
 
-/* Swiper slides */
 .swiper-slide {
   display: flex;
   flex-direction: column;
@@ -62,21 +60,18 @@ body {
   justify-content: center;
 }
 
-/* Rounded image borders */
 .item img {
   border-radius: 8px;
   border: 5px solid white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Centered span inside text */
 .centered {
   display: block;
   text-align: center;
   margin-top: 2px;
 }
 
-/* Navigation buttons */
 .navigation-buttons {
   display: flex;
   justify-content: center;
@@ -88,7 +83,6 @@ body {
   z-index: 999;
 }
 
-/* Page switch button */
 .button {
   background-color: darkred;
   color: white;
@@ -138,7 +132,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Text box below images */
 .text-box {
   background-color: white;
   padding: 1.5rem;
@@ -187,7 +180,6 @@ body {
   opacity: 1;
 }
 
-/* Contact section */
 .top-bar-contact {
   background-color: #660404;
   color: #fff;
@@ -225,6 +217,10 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   color: #fff;
   font-size: clamp(1.4rem, 3vw, 2rem);
+  background-image: url("../images/fundo.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .text-box-contact {
@@ -336,7 +332,7 @@ body.admin-page {
   font-family: sans-serif;
   text-align: center;
   margin-top: 50px;
-  background-image: url('images/fundoadmin.png');
+  background-image: url('../images/fundoadmin.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -492,8 +488,7 @@ input {
   padding-top: 40px;
 }
 
-
-/* Abas do painel admin */
+/* Abas do painel admin */ 
 .tabs {
   display: flex;
   gap: 10px;

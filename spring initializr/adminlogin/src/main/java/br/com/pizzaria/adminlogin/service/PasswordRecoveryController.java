@@ -10,15 +10,13 @@ import java.util.Map;
 @RestController
 public class PasswordRecoveryController {
 
-    @PostMapping("/recupera-senha")
+    @PostMapping("/recovery-password")
     public ResponseEntity<String> recoverPassword(@RequestBody Map<String, String> body) {
         String username = body.get("username");
-        String email = DatabaseConnection.findEmailByUsername(username);
 
-        if (email != null) {
-            return ResponseEntity.ok("Instruções enviadas para o e-mail cadastrado.");
-        } else {
-            return ResponseEntity.status(404).body("Usuário não encontrado.");
-        }
+        DatabaseConnection.findEmailByUsername(username);
+
+        String responseMessage = "Se o usuário existir, enviaremos instruções por e-mail.";
+        return ResponseEntity.ok(responseMessage);
     }
 }
