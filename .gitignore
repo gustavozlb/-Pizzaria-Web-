@@ -1,3 +1,17 @@
+# Maven Wrapper
+mvnw
+mvnw.cmd
+.mvn/
+
+# VSCode
+.vscode/
+
+# Dados locais
+data/
+
+# Arquivos auxiliares
+HELP.md
+
 # Maven build outputs
 target/
 !**/src/main/**/target/
@@ -7,3 +21,7 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+# Logs
+logs/
+*.log
