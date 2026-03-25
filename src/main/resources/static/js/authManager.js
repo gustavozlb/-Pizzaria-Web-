@@ -85,21 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
   setupLogoutButton();
 
   const btnRecover = document.getElementById("btnRecover");
-  if (btnRecover) {
-    btnRecover.addEventListener("click", recoverPassword);
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  setupLogoutButton();
-
-  const btnRecover = document.getElementById("btnRecover");
-  if (btnRecover) {
-    btnRecover.addEventListener("click", recoverPassword);
-  }
+  if (btnRecover) btnRecover.addEventListener("click", recoverPassword);
 
   const btnLogin = document.getElementById("btnLogin");
-  if (btnLogin) {
-    btnLogin.addEventListener("click", checkLogin);
-  }
+  if (btnLogin) btnLogin.addEventListener("click", checkLogin);
 });
